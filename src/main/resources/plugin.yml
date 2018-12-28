@@ -1,0 +1,3 @@
+name: RollbackWorld
+version: ${project.version}
+main: arhitector.rollbackworld.BukkitPlugin
