@@ -21,7 +21,7 @@ public class CommandManager implements CommandExecutor {
 		Map<String, Command> map = new LinkedHashMap<>();
 		
 		this.addRef(map, "select", SelectCommand.class, "basic", "", 0, false);
-		this.addRef(map, "create", CreateCommand.class, "basic", "<label>", 7, false);
+		this.addRef(map, "create", CreateCommand.class, "basic", "<label>", 1, false);
 		this.addRef(map, "restore", RestoreCommand.class, "basic", "<label>", 1, true);
 		
 		this.commands = ImmutableMap.copyOf(map);

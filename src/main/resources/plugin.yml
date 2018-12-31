@@ -1,3 +1,11 @@
 name: RollbackWorld
 version: ${project.version}
 main: arhitector.rollbackworld.BukkitPlugin
+commands:
+  rollbackworld:
+    aliases:
+      - rw
+permissions:
+  rollback.basic:
+    description: Used to save and restore areas.
+    default: op

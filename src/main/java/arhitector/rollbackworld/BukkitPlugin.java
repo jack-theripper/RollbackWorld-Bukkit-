@@ -1,8 +1,10 @@
 package arhitector.rollbackworld;
 
 import arhitector.rollbackworld.command.CommandManager;
+import arhitector.rollbackworld.event.BackupProcessEvent;
 import arhitector.rollbackworld.region.Region;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -97,6 +99,11 @@ public final class BukkitPlugin extends JavaPlugin implements CommandExecutor, L
 				player.sendMessage("You have set the #" + (corner + 1) + " corner at " + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ());
 			}
 		}
+	}
+	
+	@EventHandler
+	public void onProcessing(BackupProcessEvent event) {
+		Bukkit.broadcast("Processing ... " + event.getPercentage() + "%", "rollback.basic");
 	}
 	
 	private boolean compareItem(ItemStack var1, ItemStack var2) {
