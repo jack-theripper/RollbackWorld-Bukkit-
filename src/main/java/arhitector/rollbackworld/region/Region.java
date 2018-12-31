@@ -1,5 +1,6 @@
-package arhitector.rollbackworld.api.region;
+package arhitector.rollbackworld.region;
 
+import arhitector.rollbackworld.constant.RegionState;
 import lombok.NonNull;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
@@ -8,6 +9,16 @@ import org.bukkit.util.Vector;
  * Represents a physical shape.
  */
 public interface Region extends Iterable<Vector>, Cloneable {
+	
+	/**
+	 * What is the status of the region.
+	 */
+	RegionState getState();
+	
+	/**
+	 * Change the state.
+	 */
+	void setState(@NonNull RegionState state);
 	
 	/**
 	 * Sets the world that the selection is in.
