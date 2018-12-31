@@ -1,4 +1,4 @@
-package arhitector.rollbackworld.api;
+package arhitector.rollbackworld.constant;
 
 /**
  * Enumeration of minecraft versions.
