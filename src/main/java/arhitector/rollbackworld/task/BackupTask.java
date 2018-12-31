@@ -113,6 +113,8 @@ public class BackupTask extends BukkitRunnable {
 			} catch (IOException var6x) {
 				var6x.printStackTrace();
 			}
+			
+			BukkitPlugin.getRegions().put(regionName, region);
 		}
 		
 	}
