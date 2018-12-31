@@ -2,13 +2,12 @@ package arhitector.rollbackworld;
 
 import arhitector.rollbackworld.command.CommandManager;
 import arhitector.rollbackworld.event.BackupProcessEvent;
+import arhitector.rollbackworld.region.CuboidRegion;
 import arhitector.rollbackworld.region.Region;
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -68,6 +68,22 @@ public final class BukkitPlugin extends JavaPlugin implements CommandExecutor, L
 				return filename.endsWith(".dat");
 			}
 		});
+		
+		for (File file : files) {
+			YamlConfiguration var = YamlConfiguration.loadConfiguration(file);
+			String[] var2 = var.getString("region").split(",");
+			World world = Bukkit.getWorld(var2[0]);
+			
+			if (world == null) {
+				Bukkit.getConsoleSender().sendMessage("The region " + file.getName() + " world seems to be unloaded!");
+			} else {
+				Vector pos1 = new Vector(Float.parseFloat(var2[1]), Float.parseFloat(var2[2]), Float.parseFloat(var2[3]));
+				Vector pos2 = new Vector(Float.parseFloat(var2[4]), Float.parseFloat(var2[5]), Float.parseFloat(var2[6]));
+				CuboidRegion region = new CuboidRegion(world, pos1, pos2);
+				
+				getRegions().put(file.getName().substring(0, file.getName().length() - 4), region);
+			}
+		}
 		
 		getServer().getPluginManager().registerEvents(this, this);
 	}
