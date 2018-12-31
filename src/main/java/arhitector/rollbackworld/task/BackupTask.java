@@ -39,7 +39,7 @@ public class BackupTask extends BukkitRunnable {
 	private Iterator<Vector> iterator;
 	
 	{
-		this.scanSpeed = BukkitPlugin.getInstance().config.rollback_scan_speed;
+		this.scanSpeed = 50000;
 	}
 	
 	public BackupTask(@NonNull Region theRegion, String regionName) {
@@ -69,7 +69,7 @@ public class BackupTask extends BukkitRunnable {
 		this.temp_counter = 0;
 		++this.runs;
 		
-		if (this.runs == BukkitPlugin.getInstance().config.rollback_send_status_update_every) {
+		if (this.runs == 20) {
 			BukkitPlugin.getInstance().getServer().getPluginManager().callEvent(new BackupProcessEvent(this.getRegion(), (int) ((double) this.scannedBlocks / this.totalBlocks * 100.0D)));
 			this.runs = 0;
 		}
