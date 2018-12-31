@@ -128,7 +128,7 @@ public class BackupTask extends BukkitRunnable {
 	}
 	
 	private String regionToString() {
-		return this.getRegion().getWorld().getName() + ", " + getRegion().getMinimumPoint().toString() + ", " + getRegion().getMaximumPoint().toString();
+		return this.getRegion().getWorld().getName() + "," + getRegion().getMinimumPoint().toString() + "," + getRegion().getMaximumPoint().toString();
 	}
 	
 }
