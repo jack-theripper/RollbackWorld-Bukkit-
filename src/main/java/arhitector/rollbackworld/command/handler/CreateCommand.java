@@ -22,7 +22,7 @@ public class CreateCommand extends CommandHandler {
 	@Override
 	public void handle() {
 		Player player = (Player) this.getSender();
-		String regionName = this.getArgs()[0];
+		String regionName = this.getArgs()[1];
 		BukkitPlugin plugin = BukkitPlugin.getInstance();
 		
 		if (plugin.selectionMode.containsKey(player.getName()) && plugin.selectionMode.get(player.getName())[0] != null && plugin.selectionMode.get(player.getName())[1] != null) {
