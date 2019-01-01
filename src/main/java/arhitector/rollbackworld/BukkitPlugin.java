@@ -62,6 +62,11 @@ public final class BukkitPlugin extends JavaPlugin implements CommandExecutor, L
 		this.wandItemStack.setItemMeta(itemMeta);
 		
 		File dir = this.getDataFolder();
+		
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		File[] files = dir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {
@@ -69,19 +74,21 @@ public final class BukkitPlugin extends JavaPlugin implements CommandExecutor, L
 			}
 		});
 		
-		for (File file : files) {
-			YamlConfiguration var = YamlConfiguration.loadConfiguration(file);
-			String[] var2 = var.getString("region").split(",");
-			World world = Bukkit.getWorld(var2[0]);
-			
-			if (world == null) {
-				Bukkit.getConsoleSender().sendMessage("The region " + file.getName() + " world seems to be unloaded!");
-			} else {
-				Vector pos1 = new Vector(Float.parseFloat(var2[1]), Float.parseFloat(var2[2]), Float.parseFloat(var2[3]));
-				Vector pos2 = new Vector(Float.parseFloat(var2[4]), Float.parseFloat(var2[5]), Float.parseFloat(var2[6]));
-				CuboidRegion region = new CuboidRegion(world, pos1, pos2);
+		if (files != null) {
+			for (File file : files) {
+				YamlConfiguration var = YamlConfiguration.loadConfiguration(file);
+				String[] var2 = var.getString("region").split(",");
+				World world = Bukkit.getWorld(var2[0]);
 				
-				getRegions().put(file.getName().substring(0, file.getName().length() - 4), region);
+				if (world == null) {
+					Bukkit.getConsoleSender().sendMessage("The region " + file.getName() + " world seems to be unloaded!");
+				} else {
+					Vector pos1 = new Vector(Float.parseFloat(var2[1]), Float.parseFloat(var2[2]), Float.parseFloat(var2[3]));
+					Vector pos2 = new Vector(Float.parseFloat(var2[4]), Float.parseFloat(var2[5]), Float.parseFloat(var2[6]));
+					CuboidRegion region = new CuboidRegion(world, pos1, pos2);
+					
+					getRegions().put(file.getName().substring(0, file.getName().length() - 4), region);
+				}
 			}
 		}
 		
